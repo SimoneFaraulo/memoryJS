@@ -25,6 +25,7 @@ let count_cell_done = 0;
 var symbol_history = [];
 var id_history = []
 var moves = 0
+var cell_pressed = []
 
 
 function resetAll() {
@@ -38,6 +39,7 @@ function resetAll() {
     moves = 0;
     count_moves.textContent = 0;
     count_cell_done = 0;
+    cell_pressed = []
 } 
 
 reset.addEventListener('click', () => {
@@ -48,6 +50,8 @@ reset.addEventListener('click', () => {
 gridItems.forEach(gridItem => {
   gridItem.addEventListener('click', () => {
     // Ottieni un simbolo casuale
+    if (!cell_pressed.includes(parseInt(gridItem.id))) {
+
     if (counter < 2) {
     moves++;
     count_moves.textContent = moves;
@@ -67,6 +71,8 @@ gridItems.forEach(gridItem => {
         id2.textContent = ''
         counter = 0;
     } else if((symbol_history[0] == symbol_history[1]) && counter == 2) {
+        cell_pressed[count_cell_done] = id_history[0]
+        cell_pressed[count_cell_done+1] = id_history[1]
         count_cell_done += 2;
     }
     
@@ -76,6 +82,8 @@ gridItems.forEach(gridItem => {
 
     if (count_cell_done == 16) {
         resetAll();
+    }
+
     }
 
   });
